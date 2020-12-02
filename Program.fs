@@ -12,6 +12,7 @@ module Main =
                 "enter day number"
             else
                 match argv.[0] with
+                | "1" -> Day01.run () |> sprintf "Product of 2020: %s"
                 | "2" -> Day02.run () |> sprintf "Valid pwds: %A"
                 | _ -> "enter day number"
         printfn "%s" result
