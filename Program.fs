@@ -14,6 +14,7 @@ module Main =
                 match argv.[0] with
                 | "1" -> Day01.run () |> sprintf "Product of 2020: %s"
                 | "2" -> Day02.run () |> sprintf "Valid pwds: %A"
+                | "3" -> Day03.run () |> sprintf "Tree count: %s"
                 | _ -> "enter day number"
         printfn "%s" result
         0 // return an integer exit code
