@@ -61,9 +61,7 @@ module Day04 =
     let createPassport (claims:PassportClaim list) =
         
         let isValid =
-            passportChecks 
-            |> List.map (fun check -> claims |> List.exists check)
-            |> List.forall ((=) true)
+            passportChecks |> List.forall (fun check -> claims |> List.exists check)
         
         if isValid
         then ValidPassport claims
@@ -111,7 +109,8 @@ module Day04Tests =
     
     open Day04 
 
-    //let text = System.IO.File.ReadAllText $"{__SOURCE_DIRECTORY__}/input/day04karl.txt" // correct answers 256 and 198
+    // correct answer for part 2 is 111
+
     let invalidExample =
         """eyr:1972 cid:100
 hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
