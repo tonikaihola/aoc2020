@@ -46,11 +46,8 @@ module Day05 =
         seat
         
     let findMissing seatIds =
-        let min = seatIds |> List.min
-        let max = (seatIds |> List.max) + 1
-        let completeList = set [min .. max]
-        let seats = set seatIds
-        Set.difference completeList seats
+        let completeSet = set [List.min seatIds .. List.max seatIds]
+        Set.difference completeSet (set seatIds)
 
     let run () =
         let seatCodes = System.IO.File.ReadAllLines $"{__SOURCE_DIRECTORY__}/input/day05.txt"
