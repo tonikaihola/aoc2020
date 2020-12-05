@@ -16,6 +16,9 @@ module Main =
             let newline = Environment.NewLine
             sprintf "Passports: %A%s// Valid: %i , Invalid: %i %s// Test valid/invalid OK: %A" 
                     passports newline validCount invalidCount newline testResult
+        | 5 -> 
+            Day05Tests.run () |> ignore
+            Day05.run () |> string
         | _ -> "unknown day"
 
     [<EntryPoint>]
