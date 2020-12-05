@@ -45,20 +45,34 @@ module Day05 =
         let seat = loop cs (0,127) (0,7) 
         seat
         
+    let findMissing seatIds =
+        let min = seatIds |> List.min
+        let max = (seatIds |> List.max) + 1
+        let completeList = set [min .. max]
+        let seats = set seatIds
+        Set.difference completeList seats
+
     let run () =
         let seatCodes = System.IO.File.ReadAllLines $"{__SOURCE_DIRECTORY__}/input/day05.txt"
         let seats = seatCodes |> Array.map solveSeat
-        let maxId = seats |> Array.maxBy (fun s -> s.SID)
-        maxId.SID
+        let seatIds = seats |> Array.map (fun s -> s.SID)
+        let maxId = seatIds |> Array.max
+        let missing = findMissing (seatIds |> List.ofArray)
+        $"Max SID: {maxId} // Missing: {missing}"
 
 module Day05Tests = 
 
     open Expecto
     open Day05
-    (* Test data
+    (* 
+    Test data
         BFFFBBFRRR: row 70, column 7, seat ID 567.
         FFFBBBFRRR: row 14, column 7, seat ID 119.
         BBFFBBFRLL: row 102, column 4, seat ID 820.
+
+    Correct answers: 
+        1) 955 
+        2) 569
     *)
     let tests =
       testList "A test group" [
