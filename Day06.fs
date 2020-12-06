@@ -5,14 +5,14 @@ open Utils
 
 module Day06 =
 
-    let distinctChars (grp:string) = grp.ToCharArray() |> Array.filter Char.IsLetter |> Array.distinct
-    let containsAnswer (a:char) = Utils.splitOnLine >> Array.forall (fun x -> x.Contains a)
-    let countGroupYezzezAll (grp:string) = distinctChars grp |> Array.sumBy (fun a -> if grp |> containsAnswer a then 1 else 0)
+    let distinctChars = String.filter Char.IsLetter >> String.chars >> Array.distinct
+    let allSaidYes (a:char) = Utils.splitOnLine >> Array.forall (fun x -> x.Contains a)
+    let countGroupYesAll (grp:string) = distinctChars grp |> Array.sumBy (fun a -> if grp |> allSaidYes a then 1 else 0)
     let count mapper = Utils.splitOnEmptyLine >> Array.map mapper >> Array.sum
 
     let run () =
         let text = System.IO.File.ReadAllText $"{__SOURCE_DIRECTORY__}/input/day06.txt" 
-        let count = count (distinctChars >> Array.length) text, count countGroupYezzezAll text
+        let count = count (distinctChars >> Array.length) text, count countGroupYesAll text
         $"YES count: {count}"
 
 module Day06Tests = 
@@ -43,7 +43,7 @@ a
 
 b"""
     let countYezzez = count (distinctChars >> Array.length)
-    let countYezzezAll = count countGroupYezzezAll
+    let countYezzezAll = count countGroupYesAll
 
     let testsPartOne =
       testList "A test group" [

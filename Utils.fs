@@ -5,6 +5,9 @@ open System.IO
 
 module Utils =
 
+    module String =
+        let chars (s:string) = s.ToCharArray()
+
     let readLines path = File.ReadAllLines path
 
     let splitOnLine (text:string) =
