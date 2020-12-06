@@ -8,12 +8,11 @@ module Day06 =
     let distinctChars (grp:string) = grp.ToCharArray() |> Array.filter Char.IsLetter |> Array.distinct
     let containsAnswer (a:char) = Utils.splitOnLine >> Array.forall (fun x -> x.Contains a)
     let countGroupYezzezAll (grp:string) = distinctChars grp |> Array.sumBy (fun a -> if grp |> containsAnswer a then 1 else 0)
-    let countYezzezAll = Utils.splitOnEmptyLine >> Array.map countGroupYezzezAll >> Array.sum
-    let countYezzez = Utils.splitOnEmptyLine >> Array.map (distinctChars >> Array.length) >> Array.sum
+    let count mapper = Utils.splitOnEmptyLine >> Array.map mapper >> Array.sum
 
     let run () =
         let text = System.IO.File.ReadAllText $"{__SOURCE_DIRECTORY__}/input/day06.txt" 
-        let count = countYezzez text, countYezzezAll text
+        let count = count (distinctChars >> Array.length) text, count countGroupYezzezAll text
         $"YES count: {count}"
 
 module Day06Tests = 
@@ -43,6 +42,8 @@ a
 a
 
 b"""
+    let countYezzez = count (distinctChars >> Array.length)
+    let countYezzezAll = count countGroupYezzezAll
 
     let testsPartOne =
       testList "A test group" [
