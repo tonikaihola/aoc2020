@@ -19,6 +19,9 @@ module Main =
         | 5 -> 
             Day05Tests.run () |> ignore
             Day05.run () |> string
+        | 6 -> 
+            Day06Tests.run () |> ignore
+            Day06.run () |> string
         | _ -> "unknown day"
 
     [<EntryPoint>]
