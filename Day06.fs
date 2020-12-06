@@ -6,9 +6,9 @@ open Utils
 module Day06 =
 
     let distinctChars = String.filter Char.IsLetter >> String.chars >> Array.distinct
-    let allSaidYes (a:char) = Utils.splitOnLine >> Array.forall (fun x -> x.Contains a)
+    let allSaidYes (a:char) = String.splitOnLine >> Array.forall (fun x -> x.Contains a)
     let countGroupYesAll (grp:string) = distinctChars grp |> Array.sumBy (fun a -> if grp |> allSaidYes a then 1 else 0)
-    let count mapper = Utils.splitOnEmptyLine >> Array.map mapper >> Array.sum
+    let count mapper = String.splitOnEmptyLine >> Array.map mapper >> Array.sum
 
     let run () =
         let text = System.IO.File.ReadAllText $"{__SOURCE_DIRECTORY__}/input/day06.txt" 
