@@ -6,20 +6,10 @@ open Utils
 module Day06 =
 
     let distinctChars (grp:string) = grp.ToCharArray() |> Array.filter Char.IsLetter |> Array.distinct
-
-    let countYezzez text =
-        Utils.splitOnEmptyLine text
-        |> Array.map (distinctChars >> Array.length)
-        |> Array.sum
-
-    let countGroupYezzezAll (grp:string) = 
-        let countAnswers (a:char) = if Utils.splitOnLine grp |> Array.forall (fun x -> x.Contains a) then 1 else 0
-        distinctChars grp |> Array.sumBy countAnswers
-
-    let countYezzezAll text =
-        Utils.splitOnEmptyLine text
-        |> Array.map countGroupYezzezAll
-        |> Array.sum
+    let containsAnswer (a:char) = Utils.splitOnLine >> Array.forall (fun x -> x.Contains a)
+    let countGroupYezzezAll (grp:string) = distinctChars grp |> Array.sumBy (fun a -> if grp |> containsAnswer a then 1 else 0)
+    let countYezzezAll = Utils.splitOnEmptyLine >> Array.map countGroupYezzezAll >> Array.sum
+    let countYezzez = Utils.splitOnEmptyLine >> Array.map (distinctChars >> Array.length) >> Array.sum
 
     let run () =
         let text = System.IO.File.ReadAllText $"{__SOURCE_DIRECTORY__}/input/day06.txt" 
